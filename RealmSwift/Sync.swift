@@ -905,7 +905,7 @@ public enum SyncSubscriptionState: Equatable {
 /// Changes to the state of the subscription can be observed using `SyncSubscription.observe(_:options:_:)`.
 ///
 /// Subscriptions are created using `Results.subscribe()` or `Results.subscribe(named:)`.
-public final class SyncSubscription<T: RealmCollectionValue>: RealmCollectionValue {
+public final class SyncSubscription: RealmCollectionValue {
     private let rlmSubscription: RLMSyncSubscription
 
     /// The name of the subscription.
@@ -1022,7 +1022,7 @@ public final class SyncSubscription<T: RealmCollectionValue>: RealmCollectionVal
 // :nodoc:
 extension SyncSubscription: CustomObjectiveCBridgeable {
     static func bridging(objCValue: Any) -> SyncSubscription {
-        return ObjectiveCSupport.convert(object: RLMCastToSyncSubscription(objCValue)) as! SyncSubscription<T>
+        return ObjectiveCSupport.convert(object: RLMCastToSyncSubscription(objCValue))
     }
     var objCValue: Any {
         return 0
@@ -1113,7 +1113,7 @@ extension Results {
     /// - returns: The subscription.
     public func subscribe(named subscriptionName: String? = nil, limit: Int? = nil,
                           update: Bool = false, timeToLive: TimeInterval? = nil,
-                          includingLinkingObjects: [String] = []) -> SyncSubscription<Element> {
+                          includingLinkingObjects: [String] = []) -> SyncSubscription {
         let options = RLMSyncSubscriptionOptions()
         options.name = subscriptionName
         options.overwriteExisting = update
@@ -1657,7 +1657,7 @@ extension Realm {
 
      - requires: This must only be called on a Realm using query-based sync.
     */
-    public func subscriptions() -> Results<SyncSubscription<Object>> {
+    public func subscriptions() -> Results<SyncSubscription> {
         return Results(rlmRealm.subscriptions() as! RLMResults<AnyObject>)
     }
 
@@ -1671,7 +1671,7 @@ extension Realm {
 
      - requires: This must only be called on a Realm using query-based sync.
     */
-    public func subscription(named: String) -> SyncSubscription<Object>? {
+    public func subscription(named: String) -> SyncSubscription? {
         return rlmRealm.subscription(withName: named).map(SyncSubscription.init)
     }
 }
