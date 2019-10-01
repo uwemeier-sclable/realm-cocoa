@@ -89,7 +89,7 @@ class HeaderValidationProxy {
 const server = new ROS.BasicServer();
 server.start({
     // The desired logging threshold. Can be one of: all, trace, debug, detail, info, warn, error, fatal, off)
-    logLevel: 'off',
+    logLevel: 'error',
 
     // For all the full list of configuration parameters see:
     // https://realm.io/docs/realm-object-server/latest/api/ros/interfaces/serverconfig.html
@@ -112,6 +112,11 @@ server.start({
         }),
     ],
     autoKeyGen: true,
+
+     permissionServiceConfigOverride: (config) => {
+         config.enableManagementRealmReflection = false;
+         config.enablePermissionRealmReflection = false;
+     },
 }).then(() => {
     console.log('started');
     fs.closeSync(1);

@@ -19,11 +19,10 @@
 #import <Foundation/Foundation.h>
 
 #import "RLMRealmConfiguration.h"
-#import "RLMResults.h"
 #import "RLMSyncCredentials.h"
 #import "RLMSyncPermission.h"
 
-@class RLMSyncUser, RLMSyncUserInfo, RLMSyncCredentials, RLMSyncPermission, RLMSyncSession, RLMRealm;
+@class RLMSyncUser, RLMSyncUserInfo, RLMSyncCredentials, RLMSyncPermission, RLMSyncSession, RLMRealm, RLMSyncPermissionOffer;
 
 /**
  The state of the user object.
@@ -56,7 +55,8 @@ typedef void(^RLMPermissionOfferResponseStatusBlock)(NSURL * _Nullable, NSError 
 
 /// A block type used to asynchronously report results of a permissions get operation.
 /// Exactly one of the two arguments will be populated.
-typedef void(^RLMPermissionResultsBlock)(RLMResults<RLMSyncPermission *> * _Nullable, NSError * _Nullable);
+typedef void(^RLMPermissionResultsBlock)(NSArray<RLMSyncPermission *> * _Nullable, NSError * _Nullable);
+typedef void(^RLMPermissionOfferResultsBlock)(NSArray<RLMSyncPermissionOffer *> * _Nullable, NSError * _Nullable);
 
 /// A block type used to asynchronously report results of a user info retrieval.
 /// Exactly one of the two arguments will be populated.
@@ -411,17 +411,6 @@ NS_SWIFT_UNAVAILABLE("Use the full version of this API.");
 - (void)applyPermission:(RLMSyncPermission *)permission callback:(RLMPermissionStatusBlock)callback;
 
 /**
- Revoke a given permission.
-
- The operation will take place asynchronously, and the callback will be used to report whether
- the permission change succeeded or failed. The user calling this method must have the right
- to grant the given permission, or else the operation will fail.
-
- @see `RLMSyncPermission`
- */
-- (void)revokePermission:(RLMSyncPermission *)permission callback:(RLMPermissionStatusBlock)callback;
-
-/**
  Create a permission offer for a Realm.
 
  A permission offer is used to grant access to a Realm this user manages to another
@@ -461,6 +450,8 @@ NS_SWIFT_UNAVAILABLE("Use the full version of this API.");
  */
 - (void)acceptOfferForToken:(NSString *)token
                    callback:(RLMPermissionOfferResponseStatusBlock)callback;
+
+- (void)retrievePermissionOffersWithCallback:(RLMPermissionResultsBlock)callback NS_REFINED_FOR_SWIFT;
 
 /// :nodoc:
 - (instancetype)init __attribute__((unavailable("RLMSyncUser cannot be created directly")));

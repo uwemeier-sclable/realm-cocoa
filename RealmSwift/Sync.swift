@@ -480,8 +480,7 @@ extension SyncUser {
                 callback(nil, error as! SyncPermissionError?)
                 return
             }
-            let upcasted: RLMResults<SyncPermission> = results
-            callback(Results(upcasted as! RLMResults<AnyObject>), nil)
+            callback(results, nil)
         }
     }
 
@@ -757,44 +756,9 @@ extension Realm {
 extension SyncPermission: RealmCollectionValue { }
 
 /**
- A `Results` collection containing sync permission results.
+ An array containing sync permission results.
  */
-public typealias SyncPermissionResults = Results<SyncPermission>
-
-/**
- A property upon which a `SyncPermissionResults` can be sorted or queried.
- The raw value string can be used to construct predicates and queries
- manually.
-
- - warning: If building `NSPredicate`s using format strings including these
-            raw values, use `%K` instead of `%@` as the substitution
-            parameter.
-
- - see: `RLMSyncPermissionSortProperty`
- */
-public typealias SyncPermissionSortProperty = RLMSyncPermissionSortProperty
-
-extension SortDescriptor {
-    /**
-     Construct a sort descriptor using a `SyncPermissionSortProperty`.
-     */
-    public init(sortProperty: SyncPermissionSortProperty, ascending: Bool = true) {
-        self.init(keyPath: sortProperty.rawValue, ascending: ascending)
-    }
-}
-
-extension Results where Element == SyncPermission {
-    /**
-     Return a `Results<SyncPermissionValue>` containing the objects represented
-     by the results, but sorted on the specified property.
-
-     - see: `sorted(byKeyPath:, ascending:)`
-     */
-    public func sorted(bySortProperty sortProperty: SyncPermissionSortProperty,
-                       ascending: Bool = true) -> Results<Element> {
-        return sorted(by: [SortDescriptor(sortProperty: sortProperty, ascending: ascending)])
-    }
-}
+public typealias SyncPermissionResults = [SyncPermission]
 
 // MARK: - Partial sync subscriptions
 
