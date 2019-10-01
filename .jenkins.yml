@@ -22,6 +22,8 @@ target:
  - ios-swift
  - osx-swift
  - tvos-swift
+ - catalyst
+ - catalyst-swift
  - cocoapods-osx
  - cocoapods-ios
  - cocoapods-watchos
@@ -279,6 +281,70 @@ exclude:
   - xcode_version: 10.3
     target: tvos-swift
     configuration: Debug
+
+  - xcode_version: 10.0
+    target: catalyst
+    configuration: Debug
+
+  - xcode_version: 10.0
+    target: catalyst
+    configuration: Release
+
+  - xcode_version: 10.1
+    target: catalyst
+    configuration: Debug
+
+  - xcode_version: 10.1
+    target: catalyst
+    configuration: Release
+
+  - xcode_version: 10.2.1
+    target: catalyst
+    configuration: Debug
+
+  - xcode_version: 10.2.1
+    target: catalyst
+    configuration: Release
+
+  - xcode_version: 10.3
+    target: catalyst
+    configuration: Debug
+
+  - xcode_version: 10.3
+    target: catalyst
+    configuration: Release
+
+  - xcode_version: 10.0
+    target: catalyst-swift
+    configuration: Debug
+
+  - xcode_version: 10.0
+    target: catalyst-swift
+    configuration: Release
+
+  - xcode_version: 10.1
+    target: catalyst-swift
+    configuration: Debug
+
+  - xcode_version: 10.1
+    target: catalyst-swift
+    configuration: Release
+
+  - xcode_version: 10.2.1
+    target: catalyst-swift
+    configuration: Debug
+
+  - xcode_version: 10.2.1
+    target: catalyst-swift
+    configuration: Release
+
+  - xcode_version: 10.3
+    target: catalyst-swift
+    configuration: Debug
+
+  - xcode_version: 10.3
+    target: catalyst-swift
+    configuration: Release
 
   - xcode_version: 10.0
     target: cocoapods-osx

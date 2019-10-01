@@ -25,6 +25,9 @@ targets = {
   'osx-swift' => default,
   'tvos-swift' => default,
 
+  'catalyst' => ->(v, c) { v == '11.0' },
+  'catalyst-swift' => ->(v, c) { v == '11.0' },
+
   'cocoapods-osx' => release_only,
   'cocoapods-ios' => release_only,
   'cocoapods-watchos' => release_only,
