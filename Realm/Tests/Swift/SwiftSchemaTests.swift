@@ -21,6 +21,8 @@ import Realm
 import Realm.Private
 import RealmTestSupport
 
+#if os(macOS)
+
 class InitLinkedToClass: RLMObject {
     @objc dynamic var value: SwiftRLMIntObject! = SwiftRLMIntObject(value: [0])
 }
@@ -214,3 +216,5 @@ class SwiftRLMSchemaTests: RLMMultiProcessTestCase {
         RLMSetTreatFakeObjectAsRLMObject(false)
     }
 }
+
+#endif
